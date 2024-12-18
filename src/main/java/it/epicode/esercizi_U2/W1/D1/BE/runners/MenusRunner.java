@@ -1,6 +1,7 @@
 package it.epicode.esercizi_U2.W1.D1.BE.runners;
 
 import it.epicode.esercizi_U2.W1.D1.BE.entities.Bevanda;
+import it.epicode.esercizi_U2.W1.D1.BE.entities.Menu;
 import it.epicode.esercizi_U2.W1.D1.BE.entities.Pizza;
 import it.epicode.esercizi_U2.W1.D1.BE.entities.Topping;
 import it.epicode.esercizi_U2.W1.D1.BE.repository.BevandaRepository;
@@ -32,26 +33,30 @@ public class MenusRunner implements ApplicationRunner {
     @Autowired
     private ToppingRepository toppingRepository;
 
+    @Autowired
+    private Menu menu;
+
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
         List<Pizza> pizze = pizzaRepository.findAll();
-        for(Pizza pizza : pizze){
-            System.out.println(pizza.getNome()+" "+ pizza.getPrezzo()+" "+pizza.getCalorie());
-        }
+
 
         List<Topping> toppings = toppingRepository.findAll();
-        for(Topping topping : toppings){
-            System.out.println(topping.getNome()+" "+ topping.getPrezzo()+" "+topping.getCalorie());
-        }
+
 
         List<Bevanda> bevande = bevandaRepository.findAll();
-        for(Bevanda bevanda : bevande){
-            System.out.println(bevanda.getNome()+" "+ bevanda.getPrezzo()+" "+bevanda.getCalorie());
-        }
 
+        menu.setPizze(pizze);
 
+        menu.setBevande(bevande);
+
+        menu.setToppings(toppings);
+
+        menuRepository.save(menu);
+
+        menu.stampaMenu();
 
     }
 }

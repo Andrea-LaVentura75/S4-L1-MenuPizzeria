@@ -6,5 +6,11 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name="pizze")
-public class Pizza extends Menu {
+public class Pizza extends Alimenti {
+
+    @ManyToOne
+    @JoinColumn(name = "menu_id")
+    private Menu menu;
+
+
 }
